@@ -418,4 +418,14 @@
 		</footer>
 
 	</body>
+
+<script>
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) {
+      document.querySelectorAll('form').forEach(form => form.reset());
+    }
+  });
+</script>
+
 </html>
+
