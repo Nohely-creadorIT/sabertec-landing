@@ -211,6 +211,16 @@
 
 			/* Ajuste radical para móviles (Smartphones) */
 			@media (max-width: 768px) {
+				/* Evita que elementos invisibles rompan el ancho de la pantalla */
+				html, body {
+					overflow-x: hidden;
+					width: 100%;
+				}
+				.container {
+					width: 100%;
+					padding: 0 15px;
+				}
+				
 				/* Centra el logo y apila los enlaces debajo */
 				.nav-content {
 					flex-direction: column;
@@ -224,24 +234,27 @@
 				}
 				.nav-links a {
 					margin-left: 0;
+					font-size: 15px;
+					padding: 5px;
 				}
 				
-				/* Elimina restricciones de ancho en las tarjetas */
+				/* Expande las tarjetas al 100% del espacio disponible */
 				.grid {
 					grid-template-columns: 1fr;
+					width: 100%;
 				}
-				
-				/* Apila el formulario de contacto (Nombre y Correo en una sola columna) */
 				.form-grid {
 					grid-template-columns: 1fr;
 				}
 
-				/* Reduce los espacios gigantes de la versión de escritorio */
+				/* Ajusta el espaciado interior */
 				header { 
 					padding: 40px 0 30px 0; 
+					width: 100%;
 				}
 				section.grid-section, .methodology-section, .contact-section {
 					padding: 50px 0;
+					width: 100%;
 				}
 			}
 		</style>
