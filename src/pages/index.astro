@@ -209,13 +209,39 @@
 
 			footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.875rem; }
 
-			/* Ajuste responsivo para pantallas pequeñas */
-			@media (max-width: 1024px) {
-				.steps-grid-5 {
-					grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+			/* Ajuste radical para móviles (Smartphones) */
+			@media (max-width: 768px) {
+				/* Centra el logo y apila los enlaces debajo */
+				.nav-content {
+					flex-direction: column;
+					gap: 15px;
 				}
-				.timeline-line-container {
-					display: none;
+				.nav-links {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					gap: 12px;
+				}
+				.nav-links a {
+					margin-left: 0;
+				}
+				
+				/* Elimina restricciones de ancho en las tarjetas */
+				.grid {
+					grid-template-columns: 1fr;
+				}
+				
+				/* Apila el formulario de contacto (Nombre y Correo en una sola columna) */
+				.form-grid {
+					grid-template-columns: 1fr;
+				}
+
+				/* Reduce los espacios gigantes de la versión de escritorio */
+				header { 
+					padding: 40px 0 30px 0; 
+				}
+				section.grid-section, .methodology-section, .contact-section {
+					padding: 50px 0;
 				}
 			}
 		</style>
