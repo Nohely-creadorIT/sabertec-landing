@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Prompts PORT - Sabertec Agency</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sabertec: {
+                            bg: '#FFFFFF',
+                            card: '#F9FAFB',
+                            border: '#E5E7EB',
+                            dark: '#111827',
+                            muted: '#4B5563',
+                            violet: '#7C3AED',
+                            violetHover: '#6D28D9',
+                            violetLight: '#F5F3FF'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .shadow-sabertec {
+            box-shadow: 0 10px 25px -5px rgba(124, 58, 237, 0.08), 0 8px 10px -6px rgba(124, 58, 237, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-sabertec-bg text-sabertec-dark min-h-screen flex flex-col justify-between selection:bg-sabertec-violet selection:text-white">
+
+    <!-- Header / Branding -->
+    <header class="border-b border-sabertec-border bg-white/90 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-sabertec-violet to-purple-500 flex items-center justify-center font-bold text-xl text-white shadow-md">
+                    ST
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-xl tracking-tight text-sabertec-dark">SaberTec</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-sabertec-violetLight text-sabertec-violet">Agency</span>
+                    </div>
+                    <span class="text-xs text-sabertec-muted">AI Prompt Engineering Hub</span>
+                </div>
+            </div>
+            <div class="hidden sm:flex items-center space-x-2 text-xs text-sabertec-muted bg-sabertec-card px-3.5 py-1.5 rounded-full border border-sabertec-border">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Framework P.O.R.T. Activo</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full flex-grow grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Form Section (Left 7 Columns) -->
+        <section class="lg:col-span-7 space-y-6">
+            <div class="bg-sabertec-card border border-sabertec-border rounded-2xl p-6 sm:p-8 shadow-sabertec">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sabertec-violetLight text-sabertec-violet text-xs font-semibold mb-4">
+                    <span>⚡ Constructor PORT Profesional</span>
+                </div>
+                <h1 class="text-2xl font-bold mb-2 text-sabertec-dark">
+                    Diseña tus Prompts con Precisión
+                </h1>
+                <p class="text-sabertec-muted text-sm mb-6">
+                    Selecciona o escribe libremente cada parámetro para asegurar respuestas exactas y libres de alucinaciones en tus modelos de IA.
+                </p>
+
+                <div class="space-y-5">
+                    <!-- P - Persona / Rol -->
+                    <div>
+                        <label for="persona-select" class="block text-sm font-semibold mb-1.5 text-sabertec-dark flex items-center justify-between">
+                            <span>[P] Persona / Rol del Modelo</span>
+                            <span class="text-xs text-sabertec-muted font-normal">Menú desplegable o escritura libre</span>
+                        </label>
+                        <select id="persona-select" onchange="handleSelectChange('persona')" class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm mb-2 focus:outline-none focus:border-sabertec-violet transition shadow-sm">
+                            <option value="">-- Selecciona un rol o escribe abajo --</option>
+                            <option value="Agente inmobiliario">Agente inmobiliario</option>
+                            <option value="Profesor">Profesor</option>
+                            <option value="Académico">Académico</option>
+                            <option value="Ingeniero">Ingeniero</option>
+                            <option value="Experto en marketing">Experto en marketing</option>
+                            <option value="Analista senior">Analista senior</option>
+                            <option value="Desarrollador senior">Desarrollador senior</option>
+                            <option value="Project Manager">Project Manager</option>
+                            <option value="Experto en inteligencia artificial">Experto en inteligencia artificial</option>
+                            <option value="Ejecutivo de ventas">Ejecutivo de ventas</option>
+                            <option value="Storyteller">Storyteller</option>
+                            <option value="Arquitecto">Arquitecto</option>
+                            <option value="Ingeniero civil">Ingeniero civil</option>
+                            <option value="Vendedor">Vendedor</option>
+                            <option value="Consultor">Consultor</option>
+                            <option value="Investigador">Investigador</option>
+                            <option value="Abogado">Abogado</option>
+                            <option value="Reclutador">Reclutador</option>
+                            <option value="Desarrollador">Desarrollador</option>
+                            <option value="Creador de contenido">Creador de contenido</option>
+                            <option value="Experto SEO">Experto SEO</option>
+                            <option value="Analista de software">Analista de software</option>
+                            <option value="Product Manager">Product Manager</option>
+                        </select>
+                        <input type="text" id="persona" oninput="updatePrompt()" placeholder="O escribe el rol manualmente aquí..." 
+                            class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sabertec-violet focus:ring-1 focus:ring-sabertec-violet transition shadow-sm">
+                    </div>
+
+                    <!-- Tono / Estilo -->
+                    <div>
+                        <label for="tone-select" class="block text-sm font-semibold mb-1.5 text-sabertec-dark flex items-center justify-between">
+                            <span>[R/Extra] Tono o Estilo de Comunicación</span>
+                            <span class="text-xs text-sabertec-muted font-normal">Tono deseado</span>
+                        </label>
+                        <select id="tone-select" onchange="handleSelectChange('tone')" class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm mb-2 focus:outline-none focus:border-sabertec-violet transition shadow-sm">
+                            <option value="">-- Selecciona un tono o escribe abajo --</option>
+                            <option value="Profesional">Profesional</option>
+                            <option value="Casual">Casual</option>
+                            <option value="Cercano">Cercano</option>
+                            <option value="Informal">Informal</option>
+                            <option value="Académico">Académico</option>
+                            <option value="Técnico">Técnico</option>
+                            <option value="Persuasivo">Persuasivo</option>
+                            <option value="Amistoso">Amistoso</option>
+                            <option value="Directo y al grano">Directo y al grano</option>
+                        </select>
+                        <input type="text" id="tone" oninput="updatePrompt()" placeholder="O escribe el tono manualmente aquí..." 
+                            class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sabertec-violet focus:ring-1 focus:ring-sabertec-violet transition shadow-sm">
+                    </div>
+
+                    <!-- O - Objective & Task -->
+                    <div>
+                        <label for="objective" class="block text-sm font-semibold mb-1.5 text-sabertec-dark flex items-center justify-between">
+                            <span>[O] Objective & Task (Instrucción y Objetivo)</span>
+                            <span class="text-xs text-sabertec-muted font-normal">¿Qué debe hacer la IA?</span>
+                        </label>
+                        <textarea id="objective" rows="3" oninput="updatePrompt()" placeholder="Ej: Analiza este caso de estudio y desglosa los 3 principales factores de éxito empresarial."
+                            class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sabertec-violet focus:ring-1 focus:ring-sabertec-violet transition shadow-sm"></textarea>
+                    </div>
+
+                    <!-- R - Restrictions & Context -->
+                    <div>
+                        <label for="restrictions" class="block text-sm font-semibold mb-1.5 text-sabertec-dark flex items-center justify-between">
+                            <span>[R] Restrictions & Context (Restricciones y Contexto)</span>
+                            <span class="text-xs text-sabertec-muted font-normal">Anti-alucinación y límites</span>
+                        </label>
+                        <div class="mb-2.5 bg-white border border-sabertec-border rounded-xl p-3.5 shadow-sm">
+                            <span class="text-xs font-semibold text-sabertec-dark block mb-2">Restricciones Anti-Alucinación (Preconfiguradas):</span>
+                            <div class="space-y-2 text-xs text-sabertec-muted">
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-sabertec-dark">
+                                    <input type="checkbox" id="chk-cifras" checked onchange="updatePrompt()" class="rounded border-sabertec-border text-sabertec-violet focus:ring-sabertec-violet">
+                                    <span>No inventar cifras</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-sabertec-dark">
+                                    <input type="checkbox" id="chk-plazos" checked onchange="updatePrompt()" class="rounded border-sabertec-border text-sabertec-violet focus:ring-sabertec-violet">
+                                    <span>No prometer plazos</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer hover:text-sabertec-dark">
+                                    <input type="checkbox" id="chk-validar" checked onchange="updatePrompt()" class="rounded border-sabertec-border text-sabertec-violet focus:ring-sabertec-violet">
+                                    <span>Marcar lo que falta por validar</span>
+                                </label>
+                            </div>
+                        </div>
+                        <textarea id="restrictions" rows="3" oninput="updatePrompt()" placeholder="Añade aquí límites personalizados adicionales o contexto específico..."
+                            class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sabertec-violet focus:ring-1 focus:ring-sabertec-violet transition shadow-sm">- No inventar cifras
+- No prometer plazos
+- Marcar lo que falta por validar</textarea>
+                    </div>
+
+                    <!-- T - Target Format -->
+                    <div>
+                        <label for="format-select" class="block text-sm font-semibold mb-1.5 text-sabertec-dark flex items-center justify-between">
+                            <span>[T] Target Format (Formato de Salida)</span>
+                            <span class="text-xs text-sabertec-muted font-normal">Estructura del resultado</span>
+                        </label>
+                        <select id="format-select" onchange="handleSelectChange('format')" class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm mb-2 focus:outline-none focus:border-sabertec-violet transition shadow-sm">
+                            <option value="">-- Selecciona un formato o escribe abajo --</option>
+                            <option value="Tabla">Tabla</option>
+                            <option value="Resumen">Resumen</option>
+                            <option value="Párrafo">Párrafo</option>
+                            <option value="Ensayo">Ensayo</option>
+                            <option value="Reporte">Reporte</option>
+                            <option value="Story Format">Story Format</option>
+                            <option value="Código">Código</option>
+                            <option value="JSON">JSON</option>
+                            <option value="Markdown">Markdown</option>
+                            <option value="Lista con viñetas">Lista con viñetas</option>
+                        </select>
+                        <input type="text" id="format" oninput="updatePrompt()" placeholder="O escribe el formato de salida manualmente aquí..." 
+                            class="w-full bg-white border border-sabertec-border rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-sabertec-violet focus:ring-1 focus:ring-sabertec-violet transition shadow-sm">
+                    </div>
+                </div>
+
+                <!-- Footer del Formulario -->
+                <div class="mt-6 flex items-center justify-between pt-4 border-t border-sabertec-border">
+                    <button onclick="clearForm()" class="text-xs text-sabertec-muted hover:text-red-600 transition flex items-center gap-1.5">
+                        <span>🗑️ Limpiar campos</span>
+                    </button>
+                    <span class="text-xs text-sabertec-muted">SaberTec Agency</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preview & Export Section (Right 5 Columns) -->
+        <section class="lg:col-span-5 flex flex-col space-y-6">
+            <div class="bg-sabertec-card border border-sabertec-border rounded-2xl p-6 sm:p-8 shadow-sabertec flex flex-col h-full sticky top-28">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="font-bold text-lg text-sabertec-dark flex items-center gap-2">
+                        <span>👁️ Vista Previa del Prompt</span>
+                    </h2>
+                    <span id="char-count" class="text-xs bg-white border border-sabertec-border px-2.5 py-1 rounded-full text-sabertec-muted">0 caracteres</span>
+                </div>
+
+                <!-- Code Box -->
+                <div class="relative flex-grow mb-6">
+                    <pre id="output-box" class="w-full h-80 sm:h-96 bg-white border border-sabertec-border rounded-xl p-4 text-xs font-mono text-sabertec-dark overflow-y-auto whitespace-pre-wrap select-all leading-relaxed shadow-sm">Completa los campos del formulario PORT a la izquierda para generar tu prompt profesional...</pre>
+                </div>
+
+                <!-- Export & Copy Action Buttons -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <button onclick="copyToClipboard()" class="bg-sabertec-violet hover:bg-sabertec-violetHover text-white font-medium py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 shadow-md shadow-sabertec-violet/20 transition active:scale-95">
+                        <span>📋 Copiar</span>
+                    </button>
+                    <button onclick="exportFile('txt')" class="bg-white hover:bg-gray-50 text-sabertec-dark font-medium py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 border border-sabertec-border transition active:scale-95 shadow-sm">
+                        <span>📄 Exportar .TXT</span>
+                    </button>
+                    <button onclick="exportFile('md')" class="bg-sabertec-dark hover:bg-black text-white font-medium py-3 px-4 rounded-xl text-xs flex items-center justify-center gap-2 transition active:scale-95 shadow-md">
+                        <span>📝 Exportar .MD</span>
+                    </button>
+                </div>
+
+                <!-- Toast Notification -->
+                <div id="toast" class="hidden mt-3 text-center text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 py-2 rounded-xl transition-all font-medium">
+                    ¡Acción realizada con éxito!
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-sabertec-border bg-white py-6 text-center text-xs text-sabertec-muted">
+        Plataforma Interactiva de Ingeniería de Prompts • Creado para <a href="https://sabertec.agency" target="_blank" class="text-sabertec-violet hover:underline font-medium">sabertec.agency</a>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        function handleSelectChange(type) {
+            if (type === 'persona') {
+                const select = document.getElementById('persona-select');
+                const input = document.getElementById('persona');
+                if (select.value) {
+                    input.value = select.value;
+                }
+            } else if (type === 'tone') {
+                const select = document.getElementById('tone-select');
+                const input = document.getElementById('tone');
+                if (select.value) {
+                    input.value = select.value;
+                }
+            } else if (type === 'format') {
+                const select = document.getElementById('format-select');
+                const input = document.getElementById('format');
+                if (select.value) {
+                    input.value = select.value;
+                }
+            }
+            updatePrompt();
+        }
+
+        function updatePrompt() {
+            const persona = document.getElementById('persona').value.trim();
+            const tone = document.getElementById('tone').value.trim();
+            const objective = document.getElementById('objective').value.trim();
+            let restrictions = document.getElementById('restrictions').value.trim();
+            const format = document.getElementById('format').value.trim();
+
+            const chkCifras = document.getElementById('chk-cifras').checked;
+            const chkPlazos = document.getElementById('chk-plazos').checked;
+            const chkValidar = document.getElementById('chk-validar').checked;
+
+            let defaultRestrictions = [];
+            if (chkCifras) defaultRestrictions.push("No inventar cifras");
+            if (chkPlazos) defaultRestrictions.push("No prometer plazos");
+            if (chkValidar) defaultRestrictions.push("Marcar lo que falta por validar");
+
+            let combinedRestrictions = defaultRestrictions.length > 0 ? "Reglas Anti-Alucinación:\n- " + defaultRestrictions.join("\n- ") : "";
+            if (restrictions) {
+                combinedRestrictions += (combinedRestrictions ? "\n\n" : "") + restrictions;
+            }
+
+            let promptContent = "";
+
+            if (persona || tone || objective || combinedRestrictions || format) {
+                promptContent = `### [P] PERSONA / ROL\nActúa como un ${persona || '[Insertar Rol]'}${tone ? ` con un tono de comunicación ${tone}` : ''}.\n\n` +
+                                `### [O] OBJETIVO Y TAREA\n${objective || '[Insertar Instrucción u Objetivo Principal]'}.\n\n` +
+                                `### [R] RESTRICCIONES Y CONTEXTO\n${combinedRestrictions || '[Insertar Límites, Contexto o Reglas Operativas]'}.\n\n` +
+                                `### [T] FORMATO DE SALIDA\n${format || '[Insertar Estructura Deseada de Salida]'}`;
+            } else {
+                promptContent = "Completa los campos del formulario PORT a la izquierda para generar tu prompt profesional...";
+            }
+
+            const outputBox = document.getElementById('output-box');
+            outputBox.textContent = promptContent;
+
+            const charCount = document.getElementById('char-count');
+            charCount.textContent = `${promptContent.length} caracteres`;
+        }
+
+        function clearForm() {
+            document.getElementById('persona-select').value = '';
+            document.getElementById('persona').value = '';
+            document.getElementById('tone-select').value = '';
+            document.getElementById('tone').value = '';
+            document.getElementById('objective').value = '';
+            document.getElementById('chk-cifras').checked = true;
+            document.getElementById('chk-plazos').checked = true;
+            document.getElementById('chk-validar').checked = true;
+            document.getElementById('restrictions').value = '- No inventar cifras\n- No prometer plazos\n- Marcar lo que falta por validar';
+            document.getElementById('format-select').value = '';
+            document.getElementById('format').value = '';
+            updatePrompt();
+            showToast("Formulario restablecido con éxito");
+        }
+
+        function getPromptText() {
+            return document.getElementById('output-box').textContent;
+        }
+
+        function copyToClipboard() {
+            const text = getPromptText();
+            if (text.startsWith("Completa")) {
+                showToast("⚠️ Primero llena algunos campos del prompt.", "text-amber-800 bg-amber-50 border-amber-200");
+                return;
+            }
+            
+            const textarea = document.createElement("textarea");
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("✅ ¡Prompt copiado al portapapeles con éxito!");
+            } catch (err) {
+                showToast("❌ Error al copiar al portapapeles", "text-red-800 bg-red-50 border-red-200");
+            }
+            document.body.removeChild(textarea);
+        }
+
+        function exportFile(type) {
+            const text = getPromptText();
+            if (text.startsWith("Completa")) {
+                showToast("⚠️ El prompt está vacío, complétalo antes de exportar.", "text-amber-800 bg-amber-50 border-amber-200");
+                return;
+            }
+
+            const filename = type === 'md' ? 'prompt_sabertec_port.md' : 'prompt_sabertec_port.txt';
+            const mimeType = type === 'md' ? 'text/markdown' : 'text/plain';
+
+            const blob = new Blob([text], { type: mimeType });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            showToast(`✅ Archivo .${type.toUpperCase()} descargado correctamente`);
+        }
+
+        function showToast(message, customClass = "text-emerald-700 bg-emerald-50 border-emerald-200") {
+            const toast = document.getElementById('toast');
+            toast.className = `mt-3 text-center text-xs py-2 rounded-xl transition-all border font-medium ${customClass}`;
+            toast.textContent = message;
+            toast.classList.remove('hidden');
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+
+        window.onload = function() {
+            updatePrompt();
+        };
+    </script>
+</body>
+</html>
