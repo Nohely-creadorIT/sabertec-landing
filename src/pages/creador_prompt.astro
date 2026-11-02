@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generador de Prompts PORT - Sabertec Agency</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
+    <!-- Tailwind CSS CDN con is:inline para que Astro no lo bloquee -->
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
+    <script is:inline>
         tailwind.config = {
             theme: {
                 extend: {
@@ -51,9 +51,12 @@
                     <span class="text-xs text-sabertec-muted">AI Prompt Engineering Hub</span>
                 </div>
             </div>
-            <div class="hidden sm:flex items-center space-x-2 text-xs text-sabertec-muted bg-sabertec-card px-3.5 py-1.5 rounded-full border border-sabertec-border">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Framework P.O.R.T. Activo</span>
+            <div class="hidden sm:flex items-center space-x-4">
+                <a href="/" class="text-xs text-sabertec-muted hover:text-sabertec-violet font-medium transition">← Volver al Inicio</a>
+                <div class="flex items-center space-x-2 text-xs text-sabertec-muted bg-sabertec-card px-3.5 py-1.5 rounded-full border border-sabertec-border">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span>Framework P.O.R.T. Activo</span>
+                </div>
             </div>
         </div>
     </header>
@@ -245,11 +248,11 @@
 
     <!-- Footer -->
     <footer class="border-t border-sabertec-border bg-white py-6 text-center text-xs text-sabertec-muted">
-        Plataforma Interactiva de Ingeniería de Prompts • Creado para <a href="https://sabertec.agency" target="_blank" class="text-sabertec-violet hover:underline font-medium">sabertec.agency</a>
+        Plataforma Interactiva de Ingeniería de Prompts • Creado para <a href="/" class="text-sabertec-violet hover:underline font-medium">sabertec.agency</a>
     </footer>
 
-    <!-- JavaScript Logic -->
-    <script>
+    <!-- JavaScript Logic con is:inline -->
+    <script is:inline>
         function handleSelectChange(type) {
             if (type === 'persona') {
                 const select = document.getElementById('persona-select');
