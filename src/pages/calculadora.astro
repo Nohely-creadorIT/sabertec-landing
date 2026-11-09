@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Costes y Viabilidad IA | SaberTec Agency</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS con is:inline para que Astro lo procese -->
+    <script is:inline src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- html2pdf.js para exportar reporte a PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script>
+    <!-- html2pdf.js para exportar reporte a PDF con is:inline -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Configuración de Tailwind con is:inline -->
+    <script is:inline>
         tailwind.config = {
             theme: {
                 extend: {
@@ -40,13 +41,16 @@
                     <i class="fa-solid fa-calculator text-white text-lg"></i>
                 </div>
                 <div>
-                    <span class="text-xl font-bold tracking-tight text-slate-900">SaberTec Agency</span>
-                    <span class="block text-xs text-sabertec-primary font-medium tracking-wider uppercase">Calculadora Dual IA & Tokens</span>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">SaberTec</span>
+                    <span class="block text-xs text-sabertec-primary font-medium tracking-wider uppercase">Calculadora IA</span>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-4">
+                <!-- Botón para volver a la Landing Page -->
+                <a href="/" class="text-xs text-slate-500 hover:text-purple-600 font-medium transition hidden sm:inline-block">← Volver al Inicio</a>
+                
                 <button onclick="exportToPDF()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
-                    <i class="fa-solid fa-file-pdf"></i> Descargar Informe PDF
+                    <i class="fa-solid fa-file-pdf"></i> <span class="hidden sm:inline">Descargar PDF</span>
                 </button>
             </div>
         </div>
@@ -219,8 +223,8 @@
         © 2026 SaberTec Agency · Herramienta interna de viabilidad de proyectos y arquitectura IA.
     </footer>
 
-    <!-- Lógica de Cálculo y PDF -->
-    <script>
+    <!-- Lógica de Cálculo y PDF con is:inline -->
+    <script is:inline>
         function onModelPresetChange() {
             const preset = document.getElementById('modelPreset').value;
             const costIn = document.getElementById('costInput');
