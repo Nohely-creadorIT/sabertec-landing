@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>SaberTec | Automatización y Agentes de IA</title>
 		<style>
 			:root {
@@ -63,6 +63,12 @@
 				color: var(--text-main);
 				letter-spacing: -0.025em;
 			}
+			
+			/* Contenedor Flex para alinear enlaces en la misma línea */
+			.nav-links {
+				display: flex;
+				align-items: center;
+			}
 			.nav-links a {
 				color: var(--text-muted);
 				text-decoration: none;
@@ -71,6 +77,41 @@
 				transition: color 0.2s;
 			}
 			.nav-links a:hover { color: var(--accent); }
+
+			/* --- Estilos del Menú Desplegable (Dropdown) --- */
+			.dropdown {
+				position: relative;
+				display: inline-block;
+			}
+			.dropdown .dropbtn {
+				cursor: pointer;
+			}
+			.dropdown-content {
+				display: none; /* Oculto por defecto */
+				position: absolute;
+				top: 100%;
+				left: 20px; /* Alineado con el margen del botón */
+				background-color: #ffffff;
+				min-width: 220px;
+				box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+				border: 1px solid var(--border);
+				border-radius: 12px;
+				padding: 8px 0;
+				z-index: 200;
+			}
+			.dropdown-content a {
+				margin-left: 0;
+				padding: 12px 20px;
+				display: block;
+			}
+			.dropdown-content a:hover {
+				background-color: var(--badge-bg);
+				color: var(--accent);
+			}
+			/* Muestra el submenú al pasar el ratón */
+			.dropdown:hover .dropdown-content {
+				display: block; 
+			}
 
 			/* Hero */
 			header { padding: 80px 0 60px 0; text-align: center; border-bottom: 1px solid var(--border); }
@@ -209,7 +250,7 @@
 
 			footer { text-align: center; padding: 40px 0; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.875rem; }
 
-			/* Ajuste radical para móviles (Smartphones) */
+			/* --- Ajuste radical para móviles (Smartphones) --- */
 			@media (max-width: 768px) {
 				/* Evita que elementos invisibles rompan el ancho de la pantalla */
 				html, body {
@@ -228,14 +269,39 @@
 				}
 				.nav-links {
 					display: flex;
-					flex-wrap: wrap;
-					justify-content: center;
+					flex-direction: column; /* Cambiado a columna para celulares */
+					align-items: center;
 					gap: 12px;
+					width: 100%;
 				}
 				.nav-links a {
 					margin-left: 0;
 					font-size: 15px;
 					padding: 5px;
+				}
+				
+				/* Ajuste del Dropdown en Móviles */
+				.dropdown {
+					width: 100%;
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+				}
+				.dropdown .dropbtn {
+					margin-left: 0;
+				}
+				.dropdown-content {
+					position: relative;
+					top: 0;
+					left: 0;
+					width: 100%;
+					background-color: transparent;
+					box-shadow: none;
+					border: none;
+					padding: 0;
+				}
+				.dropdown-content a {
+					text-align: center;
 				}
 				
 				/* Expande TODAS las tarjetas al 100% (Servicios, Metodología y Formulario) */
@@ -270,12 +336,15 @@
 						<a href="#servicios">Servicios de IA</a>
 						<a href="#metodologia">Metodología</a>
 						<a href="#academia">Academia</a>
+						
+						<!-- Menú Desplegable -->
 						<div class="dropdown">
-        					<a href="#" class="dropbtn">Recursos ▾</a>
-        					<div class="dropdown-content">
-	          				  <a href="/calculadora">Calculadora de Tokens</a>
-      				    	</div>
-    					</div>
+							<a href="/recursos" class="dropbtn">Recursos ▾</a>
+							<div class="dropdown-content">
+								<a href="/calculadora">Calculadora de Tokens</a>
+							</div>
+						</div>
+						
 						<a href="#contacto">Contacta</a>
 					</div>
 				</div>
