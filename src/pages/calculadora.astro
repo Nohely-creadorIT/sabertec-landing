@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Costes y Viabilidad IA | SaberTec Agency</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf.js para exportar reporte a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sabertec: {
+                            bg: '#F8FAFC',
+                            card: '#FFFFFF',
+                            primary: '#7C3AED',
+                            accent: '#6D28D9',
+                            dark: '#0F172A',
+                            muted: '#64748B',
+                            border: '#E2E8F0'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-sabertec-bg text-slate-800 font-sans min-h-screen selection:bg-purple-500 selection:text-white">
+
+    <!-- Header -->
+    <header class="border-b border-sabertec-border bg-white/90 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center shadow-md shadow-purple-500/20">
+                    <i class="fa-solid fa-calculator text-white text-lg"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900">SaberTec Agency</span>
+                    <span class="block text-xs text-sabertec-primary font-medium tracking-wider uppercase">Calculadora Dual IA & Tokens</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <button onclick="exportToPDF()" class="bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-4 py-2.5 rounded-xl shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-file-pdf"></i> Descargar Informe PDF
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900 mb-3">
+                Evaluador de Costes y <span class="text-purple-600">Viabilidad de Proyectos IA</span>
+            </h1>
+            <p class="text-sabertec-muted text-sm sm:text-base">
+                Dimensiona con precisión técnica el consumo de tokens y contrasta el impacto financiero operativo frente al proceso manual.
+            </p>
+        </div>
+
+        <div id="calculatorReport" class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <!-- Bloque 1: Consumo de Tokens -->
+            <div class="lg:col-span-7 bg-white border border-sabertec-border rounded-2xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center justify-between pb-4 mb-6 border-b border-sabertec-border">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-microchip text-purple-600"></i> Parámetros de Inferencia y Tokens
+                    </h2>
+                    <span class="text-xs font-medium text-slate-500 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                        Tarifas por 1M tokens
+                    </span>
+                </div>
+
+                <div class="space-y-5">
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Familia / Serie de Modelo
+                        </label>
+                        <select id="modelPreset" onchange="onModelPresetChange()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                            <option value="flash-lite">Serie Flash: Flash-Lite (Alto volumen / Coste ultrabajo)</option>
+                            <option value="flash" selected>Serie Flash: Flash Standard (Equilibrio velocidad y coste)</option>
+                            <option value="flagship">Serie Flagship: Standard Pro (Razonamiento intermedio)</option>
+                            <option value="argon">Serie Flagship: Argon / Opus (Máxima capacidad y análisis)</option>
+                            <option value="custom">Personalizado (Tarifas manuales)</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Costo Input ($ / 1M tokens)
+                            </label>
+                            <input type="number" id="costInput" step="0.01" value="0.15" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Costo Output ($ / 1M tokens)
+                            </label>
+                            <input type="number" id="costOutput" step="0.01" value="0.60" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Palabras Prompt (Entrada)
+                            </label>
+                            <input type="number" id="wordsPrompt" value="1200" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                                Palabras Respuesta (Salida)
+                            </label>
+                            <input type="number" id="wordsResponse" value="350" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Ejecuciones al Mes
+                        </label>
+                        <input type="number" id="monthlyExecutions" value="500" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                    </div>
+
+                    <!-- Métricas de Tokens -->
+                    <div class="bg-purple-50 border border-purple-200 rounded-2xl p-5 space-y-3">
+                        <div class="text-xs font-bold text-purple-900 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-purple-600"></i> Proyección Mensual de Consumo
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-1">
+                            <div>
+                                <span class="block text-xs text-slate-500">Tokens Entrada</span>
+                                <span id="displayInputTokens" class="text-base font-bold text-slate-900">0</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-slate-500">Tokens Salida</span>
+                                <span id="displayOutputTokens" class="text-base font-bold text-slate-900">0</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-slate-500">Coste API Estimado</span>
+                                <span id="displayApiMonthlyCost" class="text-lg font-black text-purple-700">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Bloque 2: Viabilidad Financiera -->
+            <div class="lg:col-span-5 bg-white border border-sabertec-border rounded-2xl p-6 sm:p-8 shadow-sm">
+                <div class="flex items-center justify-between pb-4 mb-6 border-b border-sabertec-border">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-scale-balanced text-purple-600"></i> Viabilidad Financiera & ROI
+                    </h2>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Horas manuales mensuales (Sin IA)
+                        </label>
+                        <input type="number" id="manualHours" value="160" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Horas mensuales con IA (Supervisión)
+                        </label>
+                        <input type="number" id="aiHours" value="25" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Coste promedio equipo ($/hora)
+                        </label>
+                        <input type="number" id="hourlyRate" value="25" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                            Inversión inicial (Desarrollo / Setup $)
+                        </label>
+                        <input type="number" id="initialSetup" value="1500" oninput="runAllCalculations()" class="w-full bg-slate-50 border border-sabertec-border rounded-xl px-4 py-2 text-sm text-slate-900 focus:outline-none focus:border-purple-600 transition">
+                    </div>
+
+                    <!-- Métricas de Retorno -->
+                    <div class="bg-slate-900 text-white rounded-2xl p-5 space-y-3 shadow-md">
+                        <div class="text-xs font-bold text-purple-400 uppercase tracking-wider flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-purple-400"></i> Retorno y Eficiencia Neta
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 pt-1">
+                            <div>
+                                <span class="block text-xs text-slate-400">Ahorro Neto Mensual</span>
+                                <span id="displayNetSavings" class="text-base font-bold text-emerald-400">$0.00</span>
+                            </div>
+                            <div>
+                                <span class="block text-xs text-slate-400">Plazo de Retorno (Payback)</span>
+                                <span id="displayPaybackMonths" class="text-base font-bold text-purple-300">0.0 meses</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-sabertec-border mt-16 py-6 text-center text-xs text-slate-500 bg-white">
+        © 2026 SaberTec Agency · Herramienta interna de viabilidad de proyectos y arquitectura IA.
+    </footer>
+
+    <!-- Lógica de Cálculo y PDF -->
+    <script>
+        function onModelPresetChange() {
+            const preset = document.getElementById('modelPreset').value;
+            const costIn = document.getElementById('costInput');
+            const costOut = document.getElementById('costOutput');
+
+            if (preset === 'flash-lite') {
+                costIn.value = 0.075;
+                costOut.value = 0.30;
+            } else if (preset === 'flash') {
+                costIn.value = 0.15;
+                costOut.value = 0.60;
+            } else if (preset === 'flagship') {
+                costIn.value = 2.50;
+                costOut.value = 10.00;
+            } else if (preset === 'argon') {
+                costIn.value = 5.00;
+                costOut.value = 15.00;
+            }
+            runAllCalculations();
+        }
+
+        function runAllCalculations() {
+            // Entradas de Tokens
+            const costIn = parseFloat(document.getElementById('costInput').value) || 0;
+            const costOut = parseFloat(document.getElementById('costOutput').value) || 0;
+            const wordsIn = parseFloat(document.getElementById('wordsPrompt').value) || 0;
+            const wordsOut = parseFloat(document.getElementById('wordsResponse').value) || 0;
+            const executions = parseFloat(document.getElementById('monthlyExecutions').value) || 0;
+
+            // Factor de conversión estándar español/código: 1 palabra ≈ 1.33 tokens
+            const totalInputTokens = Math.round(wordsIn * 1.33 * executions);
+            const totalOutputTokens = Math.round(wordsOut * 1.33 * executions);
+
+            const apiCost = (totalInputTokens / 1000000 * costIn) + (totalOutputTokens / 1000000 * costOut);
+
+            document.getElementById('displayInputTokens').textContent = totalInputTokens.toLocaleString('es-ES');
+            document.getElementById('displayOutputTokens').textContent = totalOutputTokens.toLocaleString('es-ES');
+            document.getElementById('displayApiMonthlyCost').textContent = `$${apiCost.toFixed(2)}`;
+
+            // Entradas de Viabilidad Financiera
+            const manualH = parseFloat(document.getElementById('manualHours').value) || 0;
+            const aiH = parseFloat(document.getElementById('aiHours').value) || 0;
+            const rate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const setupCost = parseFloat(document.getElementById('initialSetup').value) || 0;
+
+            const costManualMonthly = manualH * rate;
+            const costAiMonthly = (aiH * rate) + apiCost;
+            const netMonthlySavings = costManualMonthly - costAiMonthly;
+
+            const payback = netMonthlySavings > 0 ? (setupCost / netMonthlySavings) : 0;
+
+            document.getElementById('displayNetSavings').textContent = `$${netMonthlySavings.toFixed(2)}`;
+            document.getElementById('displayPaybackMonths').textContent = payback > 0 ? `${payback.toFixed(1)} meses` : 'N/A';
+        }
+
+        function exportToPDF() {
+            const element = document.getElementById('calculatorReport');
+            const opt = {
+                margin:       10,
+                filename:     `SaberTec_Analisis_Viabilidad_IA_${new Date().toISOString().slice(0,10)}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        window.onload = function() {
+            runAllCalculations();
+        };
+    </script>
+</body>
+</html>
